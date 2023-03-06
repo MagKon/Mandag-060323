@@ -1,6 +1,7 @@
 package com.example.mandag060323;
 
 import java.io.*;
+import java.util.Scanner;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -31,24 +32,22 @@ public class HelloServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         //Read post request and set message
-        message = request.getReader().readLine();
-        if (message.contains("John") && message.contains("Doe")) {
-            message = "Hello John Doe";
+        String fname = request.getParameter("First Name");
+        String lname = request.getParameter("Last Name");
+        try {
+            if ((fname != null && !fname.equals("")) && (lname != null && !lname.equals(""))) {
+                message = "Hello " + fname + " " + lname;
+                request.setAttribute("message", message);
+                request.getRequestDispatcher("welcome.jsp").forward(request, response);
+            }
+            else {
+                request.setAttribute("message", "Please enter a name");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+            }
         }
-        else {
-//            response.sendError(400, "Bad Request");
-            response.sendRedirect("PageNotAllowed.jsp");
+        catch (Exception e) {
+            response.sendError(500, e.getMessage());
         }
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println(
-                "<html>" +
-                        "<body> " +
-                        "<h1>" + message + "</h1> " +
-                        "<br>" +
-                        "<a href=\"index.jsp\">Tilbage</a>" +
-                        "</body>" +
-                        "</html>");
     }
 
     public void destroy() {

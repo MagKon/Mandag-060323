@@ -9,12 +9,13 @@
 <body>
 
 <h2>HTML Forms</h2>
+<h3>${requestScope.message}</h3>
 
 <form action="hello-servlet" method="post" target="_blank" class="form-control">
     <label for="fname" class="form-label">First name:</label><br>
-    <input type="text" id="fname" name="fname" value="John" class="form-label"><br>
+    <input type="text" id="fname" name="First Name" placeholder="John" class="form-label"><br>
     <label for="lname" class="form-label">Last name:</label><br>
-    <input type="text" id="lname" name="lname" value="Doe" class="form-label"><br><br>
+    <input type="text" id="lname" name="Last Name" placeholder="Doe" class="form-label"><br><br>
     <input type="submit" value="Submit" class="btn btn-primary">
 </form>
 
